@@ -19613,10 +19613,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -19626,13 +19627,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["action", "param"],
+  props: ["action"],
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
     var props = __props;
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
+    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
+    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRoute)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
     var name = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)("");
     var email = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)("");
     var data = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)([]);
@@ -19643,10 +19647,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var url = "/api/students";
 
     if (props.action === "edit") {
-      var user = store.getters.find(props.param);
+      var user = store.getters.find(Number(route.params.id));
       name.value = user.name;
       email.value = user.email;
-      url += "/".concat(props.param);
+      url += "/".concat(route.params.id);
     }
 
     var insertOrUpdate = /*#__PURE__*/function () {
@@ -19679,6 +19683,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   name.value = "";
                   email.value = "";
                   data.value = res.data;
+                  router.push({
+                    name: "Home"
+                  });
                 }
 
                 _context.next = 11;
@@ -19704,6 +19711,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }();
 
     var __returned__ = {
+      router: router,
+      route: route,
       props: props,
       store: store,
       name: name,
@@ -19713,11 +19722,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dataWatch: dataWatch,
       url: url,
       insertOrUpdate: insertOrUpdate,
-      useStore: vuex__WEBPACK_IMPORTED_MODULE_3__.useStore,
+      useStore: vuex__WEBPACK_IMPORTED_MODULE_4__.useStore,
       ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
       computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed,
       watch: vue__WEBPACK_IMPORTED_MODULE_1__.watch,
-      axios: (axios__WEBPACK_IMPORTED_MODULE_2___default())
+      axios: (axios__WEBPACK_IMPORTED_MODULE_2___default()),
+      useRouter: vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter,
+      useRoute: vue_router__WEBPACK_IMPORTED_MODULE_3__.useRoute
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -19822,24 +19833,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_FormVue_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/FormVue.vue */ "./resources/js/components/FormVue.vue");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
-    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_2__.useRoute)();
-    var param = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)("");
-    param.value = route.params.id;
     var __returned__ = {
-      route: route,
-      param: param,
       FormVue: _components_FormVue_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-      useRoute: vue_router__WEBPACK_IMPORTED_MODULE_2__.useRoute,
-      ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref
+      ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
+      computed: vue__WEBPACK_IMPORTED_MODULE_1__.computed
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -19989,53 +19993,66 @@ var _hoisted_2 = {
 var _hoisted_3 = {
   "class": "container py-3 d-flex justify-content-between align-items-center"
 };
-
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_4 = {
   "class": "nav-logo"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+};
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "m-0"
-}, "W.Y.L")], -1
+}, "W.Y.L", -1
 /* HOISTED */
 );
 
-var _hoisted_5 = {
+var _hoisted_6 = {
   "class": "d-flex m-0"
 };
-var _hoisted_6 = {
+var _hoisted_7 = {
   "class": "router mx-4"
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Home");
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Home");
 
-var _hoisted_8 = {
+var _hoisted_9 = {
   "class": "router"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login");
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Login");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: {
+      name: 'Home'
+    },
+    "class": "router-link"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_5];
+    }),
+    _: 1
+    /* STABLE */
+
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
       name: 'Home'
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_7];
+      return [_hoisted_8];
     }),
     _: 1
     /* STABLE */
 
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
       name: 'Login'
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_9];
+      return [_hoisted_10];
     }),
     _: 1
     /* STABLE */
@@ -20243,7 +20260,7 @@ var _hoisted_2 = {
   "class": "row mt-5 justify-content-center align-items-center"
 };
 var _hoisted_3 = {
-  "class": "col-md-4"
+  "class": "col-md-5"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormVue"], {
@@ -20273,15 +20290,12 @@ var _hoisted_2 = {
   "class": "row mt-5 justify-content-center align-items-center"
 };
 var _hoisted_3 = {
-  "class": "col-md-4"
+  "class": "col-md-5"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormVue"], {
-    action: "edit",
-    param: $setup.param
-  }, null, 8
-  /* PROPS */
-  , ["param"])])])]);
+    action: "edit"
+  })])])]);
 }
 
 /***/ }),
@@ -20537,7 +20551,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_0__.createStore)({
     find: function find(state) {
       return function (id) {
         return state.users.find(function (user) {
-          return user.id !== id;
+          return user.id === id;
         });
       };
     }
@@ -20584,7 +20598,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\n}\n.nav-logo {\r\n  color: #07ffd6;\n}\n.nav-logo h1 {\r\n  font-size: 30px;\n}\n.router a {\r\n  text-decoration: none;\r\n  color: #07ffd6;\r\n  font-weight: bold;\n}\n.router a:hover {\r\n  color: #ffffff;\n}\nul {\r\n  list-style: none;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\n}\n.nav-logo {\r\n  color: #07ffd6;\n}\n.nav-logo h1 {\r\n  font-size: 30px;\n}\n.router-link {\r\n  text-decoration: none;\n}\n.router a {\r\n  text-decoration: none;\r\n  color: #07ffd6;\r\n  font-weight: bold;\n}\n.router a:hover {\r\n  color: #ffffff;\n}\nul {\r\n  list-style: none;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

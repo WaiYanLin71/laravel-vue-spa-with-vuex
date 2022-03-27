@@ -9,7 +9,7 @@ const store = createStore({
             return state.users
         },
         find: state => id => {
-            return state.users.find(user => user.id !== id);
+            return state.users.find(user => user.id === id);
         }
     },
     mutations: {

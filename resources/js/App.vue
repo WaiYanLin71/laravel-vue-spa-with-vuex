@@ -3,7 +3,9 @@
     <div id="nav" class="bg-dark">
       <div class="container py-3 d-flex justify-content-between align-items-center">
         <div class="nav-logo">
-          <h1 class="m-0">W.Y.L</h1>
+          <router-link :to="{name:'Home'}" class="router-link">
+            <h1 class="m-0">W.Y.L</h1>
+          </router-link>
         </div>
         <ul class="d-flex m-0">
           <li class="router mx-4">
@@ -47,6 +49,10 @@ onMounted(async () => {
 
 .nav-logo h1 {
   font-size: 30px;
+}
+
+.router-link {
+  text-decoration: none;
 }
 
 .router a {

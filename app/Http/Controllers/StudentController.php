@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {   
@@ -23,6 +25,15 @@ class StudentController extends Controller
             'name'  => $request->name,
             'email' => $request->email,
         ]);
+
+        $students = Student::all();
+
+        return response()->json($students);
+    }
+
+    public function update(UpdateStudentRequest $request) {
+        
+        DB::table('students')->where('id',$request->id)->update([...$request->collect()]);
 
         $students = Student::all();
 

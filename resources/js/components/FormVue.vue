@@ -34,8 +34,13 @@
 import { useStore } from "vuex";
 import { ref, computed, watch } from "vue";
 import axios from "axios";
+import { useRouter, useRoute } from "vue-router";
 
-const props = defineProps(["action", "param"]);
+const router = useRouter();
+
+const route = useRoute();
+
+const props = defineProps(["action"]);
 
 const store = useStore();
 const name = ref("");
@@ -50,10 +55,10 @@ const dataWatch = watch(data, () => {
 let url = "/api/students";
 
 if (props.action === "edit") {
-  const user = store.getters.find(props.param);
+  const user = store.getters.find(Number(route.params.id));
   name.value = user.name;
   email.value = user.email;
-  url += `/${props.param}`;
+  url += `/${route.params.id}`;
 }
 
 const insertOrUpdate = async () => {
@@ -75,6 +80,7 @@ const insertOrUpdate = async () => {
       name.value = "";
       email.value = "";
       data.value = res.data;
+      router.push({ name: "Home" });
     }
   } catch (e) {
     console.log(e.response.data);
