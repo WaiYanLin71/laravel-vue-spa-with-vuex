@@ -17,23 +17,13 @@
         </ul>
       </div>
     </div>
-    <router-view v-if="data.length > 0" />
+    <router-view />
   </div>
 </template>
 
 <script setup>
-import { onMounted, computed } from "vue";
-import { useStore } from "vuex";
-import axios from "axios";
 
-const store = useStore();
 
-const data = computed(() => store.getters.index);
-
-onMounted(async () => {
-  let res = await axios.get("/api/students");
-  store.dispatch("store", res.data);
-});
 </script>
 
 <style>

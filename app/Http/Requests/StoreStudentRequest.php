@@ -25,9 +25,9 @@ class StoreStudentRequest extends FormRequest
     public function rules()
     {
         return [
-
-            'name' => ['required','max:50','min:4'],
-            'email' => ['required','email','unique:students'] 
+            'name'  => ['required','max:50','min:4'],
+            'email' => ['required','email','unique:students'],
+            'image' => ['required','image','mimes:jpeg,png,jpg,gif,svg','max:2025']
         ];
     }
 }

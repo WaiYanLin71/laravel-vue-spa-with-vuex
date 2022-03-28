@@ -26,7 +26,8 @@ class UpdateStudentRequest extends FormRequest
     {
         return [
             'name' => ['required','max:50','min:4'],
-            'email' => ['required','email', Rule::unique('students')->ignore($this->route()->id)]
+            'email' => ['required','email', Rule::unique('students')->ignore($this->route()->id)],
+            'image' => ['nullable','sometimes','image','mimes:jpeg,png,jpg,gif,svg','max:2025']
         ];
     }
 }
