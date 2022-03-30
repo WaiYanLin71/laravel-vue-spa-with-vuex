@@ -14,10 +14,7 @@ class StudentController extends Controller
 
     public function index(Request $request)
     {
-        if($request->query('search')) {
-            return $this->search($request);
-        }
-
+    
         $students = Student::paginate(2);
 
         return response()->json($students);
@@ -90,19 +87,26 @@ class StudentController extends Controller
 
             File::delete($file);
 
-            return response()->json('Successfully Deleted', 200);
+            $students = Student::paginate(2);
+
+            return response()->json($students, 200);
         }
 
         return response()->json('Not Found User', 500);
     }
 
-    public function search(Request $request)
+    public function search($name)
     {
-        $search = $request->query('search');
-
-        $students = Student::where('name','LIKE','%'.$search.'%')->orWhere('email','LIKE','%'.$search.'%')->paginate(2);
+    
+        $students = Student::where('name','LIKE','%'.$name.'%')->orWhere('email','LIKE','%'.$name.'%')->paginate(2);
 
         return response()->json($students);
 
+    }
+
+    public function findById($id) 
+    {
+        $student  = Student::find($id);
+        return  response()->json($student);
     }
 }

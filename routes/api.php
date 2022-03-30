@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\StudentController;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,7 @@ Route::get('students',[StudentController::class,'index']);
 Route::delete('students/{id}',[StudentController::class,'destroy']);
 
 Route::post('students/{id}',[StudentController::class,'update']);
+
+Route::get('students/{id}',[StudentController::class,'findById'])->where('id', '[0-9]+');
+
+Route::get('students/{name}/search',[StudentController::class,'search']);

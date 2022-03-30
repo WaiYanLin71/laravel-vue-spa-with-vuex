@@ -1,10 +1,9 @@
 <template>
-  <div>login</div>
+  <div class="text-white">login</div>
 </template>
 
-<script>
-export default {};
+<script setup>
 </script>
-
-<style>
+  
+<style >
 </style>

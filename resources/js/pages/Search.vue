@@ -7,6 +7,7 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from "vue";
+import DeleteModal from "../components/modal/DeleteModal.vue";
 import Table from "../components/Table.vue";
 import Bar from "../components/Bar.vue";
 import { useStore } from "vuex";
@@ -16,8 +17,6 @@ import { useRoute, useRouter } from "vue-router";
 
 const store = useStore();
 
-const modal = ref(null);
-
 const route = useRoute();
 
 const router = useRouter();
@@ -25,13 +24,29 @@ const router = useRouter();
 let url = "/api/students";
 
 onMounted(() => {
-  showPage(route.query.page);
+  showPage(route.params.name);
 });
 
-const showPage = async (count = null) => {
-  const res = await axios.get(url + (count ? "?page=" + count : ""));
+const showPage = async name => {
+  const res = await axios.get(`${url}/${route.params.search}/search`);
+  console.log(res);
   const data = res.data;
   store.dispatch("store", data);
+};
+
+const showModal = (e, val) => {
+  modal.value = val;
+};
+
+const reply = async emit => {
+  if (emit === "Yes") {
+    const { id } = modal.value;
+    let res = await axios.delete("api/students/" + id);
+    store.dispatch("destroy", id);
+    store.dispatch("store", res.data);
+  }
+
+  modal.value = null;
 };
 
 const users = computed(() => store.getters.index);

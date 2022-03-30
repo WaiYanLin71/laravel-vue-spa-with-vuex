@@ -1,10 +1,12 @@
 <template>
-  <div class="backdrop">
-    <slot></slot>
-  </div>
+  <Teleport to="#portal">
+    <div class="backdrop">
+      <slot></slot>
+    </div>
+  </Teleport>
 </template>
 
-<script>
+<script setup>
 </script>
 
 <style>
